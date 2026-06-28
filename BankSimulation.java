@@ -208,7 +208,7 @@ class SimulationResult {
 // ─────────────────────────────────────────────
 class OutputWindow extends JFrame {
 
-    private static final DecimalFormat DF = new DecimalFormat("0.0000");
+    private static final DecimalFormat DF = new DecimalFormat("0.00");
     private static final DecimalFormat PCT = new DecimalFormat("0.00%");
 
     public OutputWindow(SimulationResult r) {
