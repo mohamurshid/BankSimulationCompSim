@@ -197,3 +197,78 @@ class SimulationResult {
         avgTimeInSystem    = sumSystem / n;
     }
 }
+// ─────────────────────────────────────────────
+//  OUTPUT WINDOW
+// ─────────────────────────────────────────────
+class OutputWindow extends JFrame {
+
+    private static final DecimalFormat DF = new DecimalFormat("0.0000");
+    private static final DecimalFormat PCT = new DecimalFormat("0.00%");
+
+    public OutputWindow(SimulationResult r) {
+        setTitle("Bank Queue Simulation — Results");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(1050, 680);
+        setLocationRelativeTo(null);
+
+        JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
+        tabs.setFont(new Font("Segoe UI", Font.BOLD, 13));
+
+        tabs.addTab("📊  Queue Statistics", buildStatsPanel(r));
+        tabs.addTab("📋  Simulation Table",  buildTablePanel(r));
+
+        add(tabs);
+    }
+
+    // ── STATISTICS PANEL ──────────────────────
+    private JPanel buildStatsPanel(SimulationResult r) {
+        JPanel outer = new JPanel(new BorderLayout(15, 15));
+        outer.setBackground(new Color(240, 245, 255));
+        outer.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
+
+        JLabel title = new JLabel("Queue Statistics — " + r.n + " Customers", SwingConstants.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 17));
+        title.setForeground(new Color(20, 50, 120));
+        outer.add(title, BorderLayout.NORTH);
+
+        JPanel grid = new JPanel(new GridLayout(4, 2, 15, 15));
+        grid.setOpaque(false);
+
+        addStatCard(grid, "Avg Waiting Time",                    DF.format(r.avgWaitTime)       + " min",  new Color(30,  90,  200));
+        addStatCard(grid, "Probability Customer Waits",          PCT.format(r.probWait),                   new Color(180, 60,  60));
+        addStatCard(grid, "Proportion of Server Idle Time",      PCT.format(r.propServerIdle),             new Color(20,  140, 80));
+        addStatCard(grid, "Probability Server is Busy",          PCT.format(r.probServerBusy),             new Color(150, 80,  180));
+        addStatCard(grid, "Avg Service Time",                    DF.format(r.avgServiceTime)    + " min",  new Color(200, 120, 20));
+        addStatCard(grid, "Avg Wait Time (Waiters Only)",        DF.format(r.avgWaitTimeWaiters)+ " min",  new Color(30,  150, 180));
+        addStatCard(grid, "Avg Time Between Arrivals",           DF.format(r.avgInterArrival)   + " min",  new Color(60,  100, 40));
+        addStatCard(grid, "Avg Time Spent in System",            DF.format(r.avgTimeInSystem)   + " min",  new Color(100, 50,  20));
+
+        outer.add(grid, BorderLayout.CENTER);
+
+        JLabel footer = new JLabel("Total Simulation Time: " + DF.format(r.totalSimTime) + " minutes", SwingConstants.RIGHT);
+        footer.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        footer.setForeground(Color.GRAY);
+        outer.add(footer, BorderLayout.SOUTH);
+
+        return outer;
+    }
+
+    private void addStatCard(JPanel panel, String label, String value, Color accent) {
+        JPanel card = new JPanel(new BorderLayout(5, 5));
+        card.setBackground(Color.WHITE);
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 5, 0, 0, accent),
+                BorderFactory.createEmptyBorder(12, 15, 12, 15)));
+
+        JLabel lbl = new JLabel(label);
+        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lbl.setForeground(Color.GRAY);
+
+        JLabel val = new JLabel(value);
+        val.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        val.setForeground(accent);
+
+        card.add(lbl, BorderLayout.NORTH);
+        card.add(val, BorderLayout.CENTER);
+        panel.add(card);
+    }
