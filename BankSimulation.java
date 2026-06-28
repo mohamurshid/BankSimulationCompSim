@@ -142,3 +142,58 @@ class Simulator {
                 arrivalTime, waitTime, serviceStart, serviceEnd, timeInSystem, arrivalTime[n-1]);
     }
 }
+class SimulationResult {
+    final int      n;
+    final double[] interArrival, serviceTime, arrivalTime;
+    final double[] waitTime, serviceStart, serviceEnd, timeInSystem;
+    final double   totalSimTime;
+
+    // Statistics
+    final double avgWaitTime;
+    final double probWait;
+    final double probServerBusy;
+    final double propServerIdle;
+    final double avgServiceTime;
+    final double avgWaitTimeWaiters;
+    final double avgInterArrival;
+    final double avgTimeInSystem;
+
+    SimulationResult(int n,
+                     double[] interArrival, double[] serviceTime,
+                     double[] arrivalTime,  double[] waitTime,
+                     double[] serviceStart, double[] serviceEnd,
+                     double[] timeInSystem, double totalSimTime) {
+        this.n            = n;
+        this.interArrival = interArrival;
+        this.serviceTime  = serviceTime;
+        this.arrivalTime  = arrivalTime;
+        this.waitTime     = waitTime;
+        this.serviceStart = serviceStart;
+        this.serviceEnd   = serviceEnd;
+        this.timeInSystem = timeInSystem;
+        this.totalSimTime = totalSimTime;
+
+        // ── Compute statistics ──
+        double sumWait = 0, sumSvc = 0, sumSystem = 0, sumIA = 0;
+        int waiters = 0;
+        double busyTime = 0;
+
+        for (int i = 0; i < n; i++) {
+            sumWait   += waitTime[i];
+            sumSvc    += serviceTime[i];
+            sumSystem += timeInSystem[i];
+            sumIA     += interArrival[i];
+            busyTime  += serviceTime[i];
+            if (waitTime[i] > 0.0001) waiters++;
+        }
+
+        avgWaitTime        = sumWait   / n;
+        probWait           = (double) waiters / n;
+        probServerBusy     = busyTime  / totalSimTime;
+        propServerIdle     = 1.0 - probServerBusy;
+        avgServiceTime     = sumSvc    / n;
+        avgWaitTimeWaiters = waiters > 0 ? sumWait / waiters : 0;
+        avgInterArrival    = sumIA     / n;
+        avgTimeInSystem    = sumSystem / n;
+    }
+}
