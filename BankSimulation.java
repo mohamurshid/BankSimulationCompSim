@@ -67,42 +67,7 @@ class InputWindow extends JFrame {
         add(main);
     }
 
-    private JTextField addRow(JPanel panel, String label, String defaultValue) {
-        JLabel lbl = new JLabel(label);
-        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        JTextField tf = new JTextField(defaultValue);
-        tf.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        tf.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 200, 230)),
-                BorderFactory.createEmptyBorder(4, 8, 4, 8)));
-        panel.add(lbl);
-        panel.add(tf);
-        return tf;
-    }
-
-    private void runSimulation() {
-        try {
-            int    n          = Integer.parseInt(txtCustomers.getText().trim());
-            double arrMin     = Double.parseDouble(txtArrivalMin.getText().trim());
-            double arrMax     = Double.parseDouble(txtArrivalMax.getText().trim());
-            double svcMin     = Double.parseDouble(txtServiceMin.getText().trim());
-            double svcMax     = Double.parseDouble(txtServiceMax.getText().trim());
-
-            if (n <= 0 || arrMin < 0 || arrMax <= arrMin || svcMin < 0 || svcMax <= svcMin) {
-                JOptionPane.showMessageDialog(this,
-                        "Please enter valid values.\n• Customers must be > 0\n• Max must be greater than Min",
-                        "Invalid Input", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            SimulationResult result = Simulator.run(n, arrMin, arrMax, svcMin, svcMax);
-            new OutputWindow(result).setVisible(true);
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "All fields must be numeric.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-}
+    
 
 // ─────────────────────────────────────────────
 //  SIMULATION ENGINE
