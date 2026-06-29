@@ -51,7 +51,7 @@ After every simulation, the application calculates:
 ### Clone the repository
 
 bash
-git clone https://github.com/your-username/BankSimulationCompSim.git
+https://github.com/mohamurshid/BankSimulationCompSim.git
 cd BankSimulationCompSim
 
 
