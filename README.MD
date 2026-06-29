@@ -45,3 +45,71 @@ After every simulation, the application calculates:
 - Average waiting time (customers who waited only)
 - Average time between arrivals
 - Average time spent in the system
+
+##  Getting Started
+
+### Clone the repository
+
+bash
+git clone https://github.com/your-username/BankSimulationCompSim.git
+cd BankSimulationCompSim
+
+
+### Compile
+
+bash
+javac BankSimulation.java
+
+
+### Run
+
+bash
+java BankSimulation
+
+
+
+##  Using the Application
+
+1. Launch the program.
+2. Enter:
+   - Number of customers
+   - Minimum and maximum arrival times
+   - Minimum and maximum service times
+3. Click *Run Simulation*.
+4. Explore the results through:
+   - *Queue Statistics* — overall performance of the system
+   - *Simulation Table* — complete event log for every customer
+
+
+##  How the Simulation Works
+
+The system models a *First-In, First-Out (FIFO)* single-server queue.
+
+For each customer, the simulator determines:
+
+- Arrival time
+- Service start time
+- Waiting time
+- Service completion time
+- Total time spent in the system
+
+Arrival and service times are generated using a *uniform random distribution* within the ranges provided by the user.
+
+
+##  Project Structure
+
+
+BankSimulation.java
+│
+├── BankSimulation      # Application entry point
+├── InputWindow         # Collects simulation parameters
+├── Simulator           # Queue simulation logic
+├── SimulationResult    # Computes statistics
+└── OutputWindow        # Displays results
+
+
+
+## Built With
+
+- Java
+- Java Swing
