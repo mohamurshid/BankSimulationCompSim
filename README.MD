@@ -18,7 +18,7 @@ A Java Swing application that simulates a **single-server bank queue** using ran
 
 - 156740 Benson Gitonga
 - 159740 Joy Wanjohi
-- 169962 Muhammed Abdalla
+- 169962 Muhammad Abdalla
 - 169004 Ilhan Hamud
 - 154210 Elvis Wafula
 - 150851 Melissa Ndeti
